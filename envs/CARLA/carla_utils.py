@@ -4,7 +4,7 @@ from .carla_lib.carla.transform import Transform
 import numpy as np
 from .carla_lib.carla.settings import CarlaSettings
 from .carla_lib.carla.sensor import Camera
-# from skimage import measure
+from skimage import measure
 import math
 from numpy.linalg import inv
 import numpy

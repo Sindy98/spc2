@@ -30,7 +30,7 @@ from carla.tcp import TCPConnectionError
 def view_start_positions(args):
     # We assume the CARLA server is already waiting for a client to connect at
     # host:port. The same way as in the client example.
-    with make_carla_client(args.host, args.port) as client:
+    with _client(args.host, args.port) as client:
         print('CarlaClient connected')
 
         # We load the default settings to the client.

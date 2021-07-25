@@ -67,9 +67,12 @@ class ActionSampleManager:
             pred_neg = torch.round(pred[:, :, 1]) if to_round else pred[:, :, 1]
 
         cost = -pred_pos * speeds + pred_neg * self.args.speed_threshold
-        cost = cost * self.time_discount
+        
         if key == "colls_with_prob":
+            cost = cost * torch.reshape(self.time_discount,(-1,1))
             cost = cost.sum(axis=2)
+        else:
+            cost = cost * self.time_discount
         cost = (cost.view(-1, self.args.pred_step, 1) * weight).sum(-1).sum(-1)
         return cost
 
@@ -97,7 +100,6 @@ class ActionSampleManager:
             ins_cos = self.add_cost(output, 'colls_with_prob', speeds, weight, with_cur=True)
         else:
             ins_cos = 0
-
         return cost, ins_cos
 
     def _sample_action(self, p, net, imgs, guides, action_var=None, testing=False):
@@ -116,13 +118,17 @@ class ActionSampleManager:
         this_action0 = copy.deepcopy(action)
         this_action = Variable(torch.from_numpy(action).cuda().float(), requires_grad=False)
         with torch.no_grad():
-            cost, ins_cost = self.estimate_cost(net, imgs, this_action, action_var, None, None).data.cpu().numpy()
+            cost, ins_cost = self.estimate_cost(net, imgs, this_action, action_var, None, None)
+            cost = cost.data.cpu().numpy()
+            #ins_cost = ins_cost.data.cpu().numpy()
+        
         
         idx = np.argpartition(cost, self.top_k)
         top_k_idx = idx[:self.top_k]
-        top_k_ins_cost = ins_cost[top_k_idx]
-        idx = np.argmin(top_k_ins_cost)
-        true_idx = top_k_idx[idx]
+        #top_k_ins_cost = ins_cost[top_k_idx]
+        #idx = np.argmin(top_k_ins_cost)
+        #true_idx = top_k_idx[idx]
+        true_idx = top_k_idx[0]
         res = this_action0[true_idx, :, :]
         
         if not testing:

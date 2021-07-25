@@ -18,7 +18,7 @@ init_parser(parser)  # See `args.py` for default arguments
 args = parser.parse_args()
 args = post_processing(args)
 
-CARLA8_TIMEOUT = 1000000
+CARLA8_TIMEOUT = 100000
 CARLA9_TIMEOUT = 20.0
 
 def init_dirs(dir_list):
@@ -78,7 +78,7 @@ def main():
         # select CARLA v0.8.x as the platform
         from envs.CARLA.carla_lib.carla.client import make_carla_client
         from envs.CARLA.carla_env import CarlaEnv
-        client = make_carla_client('192.168.1.103', args.port, CARLA8_TIMEOUT)
+        client = make_carla_client("localhost", args.port, CARLA8_TIMEOUT)
         env = CarlaEnv(client, args)
     else:
         # select PyTorcs or GTAV as the platform

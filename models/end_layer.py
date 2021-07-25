@@ -34,9 +34,9 @@ class end_layer(nn.Module):
         x = x.view(x.size(0), -1)
         # print(x.shape)
         # print("----")
-        x = F.relu(self.fc11(x), inplace=True)
-        x = F.relu(self.fc22(x), inplace=True)
-        x = self.fc33(x)
+        x = F.relu(self.fc1(x), inplace=True)
+        x = F.relu(self.fc2(x), inplace=True)
+        x = self.fc3(x)
 
         if self.activate is not None:
             x = self.activate(x)

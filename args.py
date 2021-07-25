@@ -25,7 +25,7 @@ def set_train_params(parser):
     parser.add_argument('--checkpoint', type=str, default='')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--output_path', type=str, default='demo', help="output path to save evaluation results")
-    parser.add_argument('--port', type=int, default=6666)
+    parser.add_argument('--port', type=int, default=2000)
     parser.add_argument('--num-train-steps', type=int, default=10)
     parser.add_argument('--max-steps', type=int, default=1000000)
     parser.add_argument('--max-eval-step', type=int, default=1000)
@@ -97,7 +97,7 @@ def set_common_params(parser):
     parser.add_argument('--id', type=int, default=0)
     parser.add_argument('--save-record', action='store_true', help="whether to save visulization of real-time observations")
     parser.add_argument('--logger_path', type=str, default="wandb_log.txt")
-    parser.add_argument('--env', type=str, default='carla')
+    parser.add_argument('--env', type=str, default='carla8')
     parser.add_argument('--server', type=bool, default=False)
     parser.add_argument('--wandb', action="store_true", help="whether to use wandb for train logging")
 

@@ -13,6 +13,7 @@ cd ..
 	--save-freq 500 \
         --use-offroad \
         --use-speed \
+	--use-colls-with \
 	--use-collision \
         --sample-with-collision \
         --sample-with-offroad \
@@ -26,7 +27,7 @@ cd ..
         --id 200 \
         --verbose \
 	--wandb \
-	--port 2066 \
+	--port 2000 \
 	--vehicle-num 32 \
 	--sample-type binary \
 	--optim Adam \
@@ -37,8 +38,9 @@ cd ..
 	--frame-height 256 \
 	--use-depth \
 	--resume \
+	--SAS \
 	--pretrain-model pretrain/pretrained.pth\
-	# --use-detection \
+	 --use-detection \
 	# --steer-clip 0.1\
 	# --resume \
 	# --use-offlane \

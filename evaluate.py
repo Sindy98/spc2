@@ -117,7 +117,7 @@ def evaluate_policy(args, env):
 
         # initialize environment
         obs_ori, info = env.reset()
-        obs = obs_ori.reshape((args.frame_height, 4, args.frame_width, 4, 3)).max(3).max(1)
+        obs = obs_ori#.reshape((args.frame_height, 4, args.frame_width, 4, 3)).max(3).max(1)
         info['seg'].resize(args.frame_height, args.frame_width)
 
         encoder = DataEncoder()
@@ -160,7 +160,7 @@ def evaluate_policy(args, env):
             action = action[0]
 
             obs_ori, reward, done, info = env.step(action)
-            obs = obs_ori.reshape((args.frame_height, 4, args.frame_width, 4, 3)).max(3).max(1)
+            obs = obs_ori#.reshape((args.frame_height, 4, args.frame_width, 4, 3)).max(3).max(1)
             info['seg'].resize(args.frame_height, args.frame_width)
             draw_current_frame(args, action, obs_ori, p, None, bboxes, scores, os.path.join(output_path, str(episode), str(step)), step)
 

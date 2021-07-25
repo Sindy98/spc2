@@ -140,6 +140,14 @@ class CarlaEnv(object):
             self.client.send_control(action)
         else:
             throttle, steer, brake = self.signal_mapping(action)
+            throttle = float(throttle)
+            steer = float(steer)
+            brake = float(brake)
+            steer=0
+            throttle=1
+            brake=0
+            hand_brake=False
+            reverse=False
             if abs(steer) < self.args.steer_clip:
                 steer = 0
             self.client.send_control(
@@ -148,6 +156,12 @@ class CarlaEnv(object):
                 brake=brake,
                 hand_brake=False,
                 reverse=False)
+            # self.client.send_control(
+            #     steer=0,
+            #     throttle=1.0,
+            #     brake=0.0,
+            #     hand_brake=False,
+            #     reverse=False)
         measurements, sensor_data = self.client.read_data()
 
         info = self.convert_info(measurements)

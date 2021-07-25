@@ -356,7 +356,7 @@ def tile_single(x, action):
     batch_size, c, w, h = x.size()
     assert action.size(0) == batch_size
     action = action.view(action.size(0), -1, 1, 1).repeat(1, 1, w, h)
-    return torch.cat([x, action], dim=1)
+    return torch.cat([x, action.to(x.device)], dim=1)
 
 
 def tile(x, action):
